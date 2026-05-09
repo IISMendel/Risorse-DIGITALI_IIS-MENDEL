@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Risorse Digitali IIS Mendel — Create dai Docenti per il Mendel</title>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #1b5e20;
+    --green-primary: #2e7d32;
+    --green-mid: #388e3c;
+    --green-light: #4caf50;
+    --green-pale: #e8f5e9;
+    --green-pale2: #f1f8f1;
+    --white: #ffffff;
+    --grey-bg: #f5f5f5;
+    --text-dark: #1a1a1a;
+    --text-mid: #444;
+    --text-light: #777;
+    --shadow: 0 2px 12px rgba(30,94,32,0.10);
+    --shadow-hover: 0 6px 24px rgba(30,94,32,0.18);
+    --radius: 10px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Titillium Web', sans-serif;
+    background: var(--grey-bg);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 60%, var(--green-mid) 100%);
+    color: white;
+    padding: 56px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .hero-logo {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero-logo svg { width: 18px; height: 18px; fill: #a5d6a7; }
+  .hero h1 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 span { color: #a5d6a7; }
+  .hero p {
+    font-size: 1.05rem;
+    font-weight: 300;
+    opacity: 0.88;
+    max-width: 640px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.30);
+    border-radius: 6px;
+    padding: 10px 22px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .hero-stats {
+    display: flex; justify-content: center; gap: 40px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat .num { font-size: 2rem; font-weight: 900; color: #a5d6a7; line-height: 1; }
+  .hero-stat .lbl { font-size: 0.78rem; opacity: 0.75; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+
+  /* ── SEARCH BAR ── */
+  .search-wrap {
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 18px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+  .search-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex; align-items: center; gap: 12px;
+    flex-wrap: wrap;
+  }
+  .search-box {
+    display: flex; align-items: center; gap: 8px;
+    flex: 1; min-width: 220px;
+    background: var(--grey-bg);
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    padding: 9px 14px;
+    transition: border-color .2s;
+  }
+  .search-box:focus-within { border-color: var(--green-primary); }
+  .search-box svg { width: 16px; height: 16px; fill: var(--text-light); flex-shrink: 0; }
+  .search-box input {
+    border: none; background: none; outline: none;
+    font-family: inherit; font-size: 0.9rem; color: var(--text-dark); width: 100%;
+  }
+  .filter-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+  .filter-btn {
+    padding: 6px 14px; border-radius: 20px; border: 1.5px solid #ddd;
+    background: white; font-family: inherit; font-size: 0.78rem; font-weight: 600;
+    color: var(--text-mid); cursor: pointer; transition: all .18s;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--green-primary); color: white; border-color: var(--green-primary);
+  }
+  #results-count {
+    font-size: 0.8rem; color: var(--text-light);
+    margin-left: auto; white-space: nowrap;
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 36px 20px 64px;
+  }
+
+  /* ── CATEGORY SECTION ── */
+  .category {
+    margin-bottom: 40px;
+    animation: fadeIn .4s ease both;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; } }
+
+  .cat-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--green-pale);
+  }
+  .cat-icon {
+    width: 38px; height: 38px; border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .cat-icon svg { width: 20px; height: 20px; fill: white; }
+  .cat-title { font-size: 1.1rem; font-weight: 700; color: var(--green-dark); }
+  .cat-count {
+    margin-left: auto;
+    background: var(--green-pale);
+    color: var(--green-primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  /* ── GRID ── */
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  /* ── LINK CARD ── */
+  .link-card {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: white;
+    border: 1.5px solid #e8f0e8;
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    text-decoration: none;
+    color: inherit;
+    transition: all .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .link-card::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--green-light);
+    opacity: 0;
+    transition: opacity .2s;
+  }
+  .link-card:hover {
+    box-shadow: var(--shadow-hover);
+    border-color: var(--green-light);
+    transform: translateY(-2px);
+  }
+  .link-card:hover::before { opacity: 1; }
+  .link-card-icon {
+    width: 32px; height: 32px; border-radius: 7px;
+    background: var(--green-pale);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .link-card-icon svg { width: 15px; height: 15px; fill: var(--green-primary); }
+  .link-card-body { flex: 1; min-width: 0; }
+  .link-card-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.3;
+    margin-bottom: 3px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .link-card-author {
+    font-size: 0.74rem;
+    color: var(--text-light);
+    font-weight: 400;
+  }
+  .link-card-arrow {
+    width: 18px; height: 18px; flex-shrink: 0; margin-top: 3px;
+    fill: var(--green-light);
+    opacity: 0;
+    transition: opacity .2s, transform .2s;
+  }
+  .link-card:hover .link-card-arrow { opacity: 1; transform: translateX(2px); }
+
+  .hidden { display: none !important; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--green-dark);
+    color: rgba(255,255,255,0.75);
+    text-align: center;
+    padding: 28px 20px;
+    font-size: 0.82rem;
+    line-height: 1.7;
+  }
+  footer strong { color: #a5d6a7; }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 1.6rem; }
+    .links-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; }
+    #results-count { width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<header class="hero">
+  <div class="hero-logo">
+    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    IIS Gregorio Mendel · Villa Cortese (MI)
+  </div>
+  <h1>Risorse Digitali <span>IIS Mendel</span></h1>
+  <p>Pagine web interattive create dai <strong style="color:#c8e6c9">docenti del Mendel</strong> per studenti, colleghi e famiglie dell'Istituto.<br>
+  Un patrimonio digitale costruito internamente, anno dopo anno.</p>
+  <div class="hero-badge">✦ Create dai docenti · Esclusivamente per il Mendel ✦</div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">63</div><div class="lbl">Risorse online</div></div>
+    <div class="hero-stat"><div class="num">9</div><div class="lbl">Aree tematiche</div></div>
+    <div class="hero-stat"><div class="num">100%</div><div class="lbl">Open access</div></div>
+  </div>
+</header>
+
+<!-- ═══════════════ SEARCH ═══════════════ -->
+<div class="search-wrap">
+  <div class="search-inner">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      <input type="text" id="searchInput" placeholder="Cerca una risorsa…" oninput="filterAll()">
+    </div>
+    <div class="filter-btns" id="filterBtns">
+      <button class="filter-btn active" onclick="filterCat(this,'all')">Tutte</button>
+      <button class="filter-btn" onclick="filterCat(this,'istituto')">Istituto</button>
+      <button class="filter-btn" onclick="filterCat(this,'esami')">Esami</button>
+      <button class="filter-btn" onclick="filterCat(this,'edcivica')">Ed. Civica</button>
+      <button class="filter-btn" onclick="filterCat(this,'inglese')">Inglese</button>
+      <button class="filter-btn" onclick="filterCat(this,'clil')">CLIL/Agrario</button>
+      <button class="filter-btn" onclick="filterCat(this,'tech')">Tecnologie</button>
+      <button class="filter-btn" onclick="filterCat(this,'inclusione')">Inclusione</button>
+      <button class="filter-btn" onclick="filterCat(this,'docenti')">Docenti</button>
+      <button class="filter-btn" onclick="filterCat(this,'materie')">Altre Materie</button>
+    </div>
+    <span id="results-count"></span>
+  </div>
+</div>
+
+<!-- ═══════════════ MAIN ═══════════════ -->
+<main>
+
+<!-- ────────── 1. L'ISTITUTO ────────── -->
+<section class="category" data-cat="istituto">
+  <div class="cat-header">
+    <div class="cat-icon" style="background:var(--green-primary)">
+      <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+    </div>
+    <div class="cat-title">L'Istituto Mendel</div>
+    <span class="cat-count">10 risorse</span>
+  </div>
+  <div class="links-grid">
+    <a class="link-card" href="https://iismendel.github.io/presentazione-IIS-MENDEL/" target="_blank" data-title="Presentazione IIS Mendel">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Presentazione IIS Mendel</div><div class="link-card-author">Istituto</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/presentazione-Mendel-con-galleria-fotografica/" target="_blank" data-title="Presentazione con galleria fotografica">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Presentazione con Galleria Fotografica</div><div class="link-card-author">Istituto</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/PTOF_25_26_IIS-MENDEL/" target="_blank" data-title="PTOF 2025/26">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">PTOF 2025/26</div><div class="link-card-author">Piano Triennale dell'Offerta Formativa</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Piano-attivit--_iismendel-_25_26/" target="_blank" data-title="Piano delle Attività 2025/26">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Piano delle Attività 2025/26</div><div class="link-card-author">Istituto</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Porgrammazioni-dipartimenti_IIS-MENDEL/" target="_blank" data-title="Programmazioni dei Dipartimenti">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Programmazioni dei Dipartimenti</div><div class="link-card-author">Istituto</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/guida-sito_IIS-MENDEL/" target="_blank" data-title="Guida al sito web">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Guida al Sito Web</div><div class="link-card-author">Istituto</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/open-day_2025_IIS-MENDEL/" target="_blank" data-title="Open Day 2025">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Open Day 2025</div><div class="link-card-author">Orientamento in entrata</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Fiera-Villa-Cortese-2025/" target="_blank" data-title="Fiera Villa Cortese 2025">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Fiera Villa Cortese 2025</div><div class="link-card-author">Evento territoriale</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Catalogo-prodotti-Mendel_2025/" target="_blank" data-title="Catalogo Prodotti Mendel 2025">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Catalogo Prodotti Mendel 2025</div><div class="link-card-author">Azienda agraria</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Stage-Irlanda_IIS-MENDEL/" target="_blank" data-title="Stage in Irlanda">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4M8 12h8"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Stage in Irlanda</div><div class="link-card-author">Mobilità internazionale</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ────────── 2. ESAMI E ORIENTAMENTO ────────── -->
+<section class="category" data-cat="esami">
+  <div class="cat-header">
+    <div class="cat-icon" style="background:#558b2f">
+      <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    </div>
+    <div class="cat-title">Esami e Orientamento</div>
+    <span class="cat-count">5 risorse</span>
+  </div>
+  <div class="links-grid">
+    <a class="link-card" href="https://iismendel.github.io/Esame-Maturit-_25_26_IIS-MENDEL/" target="_blank" data-title="Esame di Maturità 2025/26">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Esame di Maturità 2025/26</div><div class="link-card-author">Prof. Crespi — Guida completa</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Tips-for-ORALE-Maturit-_Prof_Crespi_IIS-MENDEL/" target="_blank" data-title="Tips per l'orale Maturità - Tecnici">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Tips per l'Orale — Tecnici</div><div class="link-card-author">Prof. Crespi</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Tips_Orale-Maturit-_5_Professionale_Prof_Crespi_IIS-MENDEL/" target="_blank" data-title="Tips per l'orale Maturità - Professionali">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Tips per l'Orale — Professionali</div><div class="link-card-author">Prof. Crespi</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Cap-e-PAC-per-le-classi-quinte-del-prof.-Crespi_IIS-MENDEL/" target="_blank" data-title="CAP e PAC per le classi quinte">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">CAP e PAC per le Classi Quinte</div><div class="link-card-author">Prof. Crespi</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Orientamento-3A_Prof.Crespi_IIS-MENDEL/" target="_blank" data-title="Orientamento classe 3A">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Orientamento Classe 3A</div><div class="link-card-author">Prof. Crespi</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ────────── 3. EDUCAZIONE CIVICA ────────── -->
+<section class="category" data-cat="edcivica">
+  <div class="cat-header">
+    <div class="cat-icon" style="background:#1565c0">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
+    <div class="cat-title">Educazione Civica</div>
+    <span class="cat-count">10 risorse</span>
+  </div>
+  <div class="links-grid">
+    <a class="link-card" href="https://iismendel.github.io/Ed_Civica_IIS-MENDEL/" target="_blank" data-title="Hub Educazione Civica">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Hub Educazione Civica</div><div class="link-card-author">Portale generale</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Ed_Civica_classi-quinte_maturit-_IIS_MENDEL_Crespi/" target="_blank" data-title="Ed. Civica classi quinte">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Ed. Civica — Classi Quinte</div><div class="link-card-author">Prof. Crespi</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/ED_CIVICA_Nutrition_4C_Crespi_IIS-MENDEL/" target="_blank" data-title="Educazione civica Nutrizione 4C">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Nutrizione e Alimentazione (4C)</div><div class="link-card-author">Prof. Crespi</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Digital-citizenship_4PA_Crespi_IIS-MENDEL/" target="_blank" data-title="Cittadinanza digitale 4PA">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Cittadinanza Digitale (4PA)</div><div class="link-card-author">Prof. Crespi</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Digital-citizenship_IIS-MENDEL_Ed_CIVICA/#gl-U" target="_blank" data-title="Digital citizenship Ed Civica">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Digital Citizenship — Ed. Civica</div><div class="link-card-author">Prof. Crespi</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Cittadinanza-digitale-Ed_CIVICA_Quinte_IIS-MENDEL/" target="_blank" data-title="Cittadinanza digitale Quinte">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Cittadinanza Digitale — Quinte</div><div class="link-card-author">Prof. Crespi</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Ed_Civica_English-ONLY_IIS-MENDEL/" target="_blank" data-title="Ed. Civica in English">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Ed. Civica in English</div><div class="link-card-author">Prof. Crespi — CLIL</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Giornata_della_Memoria_IIS-MENDEL/" target="_blank" data-title="Giornata della Memoria">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Giornata della Memoria</div><div class="link-card-author">27 Gennaio</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/25-novembre---Giornata-internazionale-per-l-eliminazione-della-violenza-contro-le-donne_IIS-MENDEL/" target="_blank" data-title="25 Novembre giornata contro la violenza">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">25 Novembre — Giornata contro la Violenza</div><div class="link-card-author">Istituto</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Ambiente-e-sostenibilit-/" target="_blank" data-title="Ambiente e sostenibilità">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Ambiente e Sostenibilità</div><div class="link-card-author">SDG — Sviluppo Sostenibile</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ────────── 4. INGLESE ────────── -->
+<section class="category" data-cat="inglese">
+  <div class="cat-header">
+    <div class="cat-icon" style="background:#c62828">
+      <svg viewBox="0 0 24 24"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg>
+    </div>
+    <div class="cat-title">Inglese</div>
+    <span class="cat-count">10 risorse</span>
+  </div>
+  <div class="links-grid">
+    <a class="link-card" href="https://iismendel.github.io/Inglese_IIS-MENDEL/" target="_blank" data-title="Hub Inglese">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Hub Inglese</div><div class="link-card-author">Prof. Crespi — Portale generale</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/CLIL_IIS-MENDEL/" target="_blank" data-title="Hub CLIL">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Hub CLIL</div><div class="link-card-author">Content and Language Integrated Learning</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Animal-Welfare_Prof_Crespi_IIS-MENDEL/" target="_blank" data-title="Animal Welfare">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Animal Welfare</div><div class="link-card-author">Prof. Crespi — CLIL Agrario</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Conditionals_Crespi_IIS-MENDEL/" target="_blank" data-title="Conditionals">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Conditionals</div><div class="link-card-author">Prof. Crespi — Grammatica</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/PAST-SIMPLE_1PC_Crespi_IIS-MENDEL/" target="_blank" data-title="Past Simple 1PC">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Past Simple (1PC)</div><div class="link-card-author">Prof. Crespi — Grammatica</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Song-translations_IIS-MENDEL/" target="_blank" data-title="Song Translations">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Song Translations</div><div class="link-card-author">Prof. Crespi</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/movies-and-songs_iis-mendel/" target="_blank" data-title="Movies and Songs">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Movies & Songs</div><div class="link-card-author">Prof. Crespi</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Cambridge_IIS-MENDEL/" target="_blank" data-title="Cambridge">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Cambridge</div><div class="link-card-author">Certificazioni linguistiche</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Forrest-Gump-Analysis-1PC_IIS-MENDEL/" target="_blank" data-title="Forrest Gump Analysis">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><polygon points="10 8 16 12 10 16 10 8"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Forrest Gump Analysis (1PC)</div><div class="link-card-author">Prof. Crespi</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/App_ripasso_classi-prime_V1/" target="_blank" data-title="App ripasso classi prime">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2z"/><path d="M12 6v6l4 2"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">App Ripasso — Classi Prime</div><div class="link-card-author">Prof. Crespi</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ────────── 5. CLIL AGRARIO ────────── -->
+<section class="category" data-cat="clil">
+  <div class="cat-header">
+    <div class="cat-icon" style="background:#33691e">
+      <svg viewBox="0 0 24 24"><path d="M12 22V12M12 12C12 12 7 8.5 2 9c3.5 5 10 5 10 5M12 12c0 0 5-3.5 10-3-3.5 5-10 5-10 5"/></svg>
+    </div>
+    <div class="cat-title">CLIL Agrario &amp; Internazionale</div>
+    <span class="cat-count">8 risorse</span>
+  </div>
+  <div class="links-grid">
+    <a class="link-card" href="https://iismendel.github.io/Types-of-Farming_Classi-Quinte_Crespi_IIS-MENDEL/" target="_blank" data-title="Types of Farming">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Types of Farming — Classi Quinte</div><div class="link-card-author">Prof. Crespi</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Horticultural-production-techniques-in-IDAHO_IIS-MENDEL_Minnaja_Hampton/" target="_blank" data-title="Orticoltura Idaho Minnaja Hampton">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Horticultural Techniques in Idaho</div><div class="link-card-author">Prof. Minnaja &amp; Prof. Hampton (USU)</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Livestock-Farm_-PA_Hampton_Rod-/" target="_blank" data-title="Livestock Farm PA Hampton">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Livestock Farm</div><div class="link-card-author">Prof. Hampton (USU)</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Environmental-Legislation-in-the-US_Allison-and-Max_IIS-MENDEL/" target="_blank" data-title="Environmental Legislation USA Allison Max">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Environmental Legislation in the US</div><div class="link-card-author">Prof. Crespi &amp; Prof. Hampton (USU)</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Comparative-Environmental-Frameworks_IIS-MENDEL_CRESPI_HAMPTON/" target="_blank" data-title="Comparative Environmental Frameworks">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Comparative Environmental Frameworks</div><div class="link-card-author">Prof. Crespi &amp; Prof. Hampton (USU)</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Sustainable-cities-and-communities_Hampton_Crespi_IIS-MENDEL/" target="_blank" data-title="Sustainable Cities and Communities">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Sustainable Cities &amp; Communities (SDG 11)</div><div class="link-card-author">Prof. Hampton &amp; Prof. Crespi</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Westward-expansion-and-Oregon-Trail_IIS-MENDEL/" target="_blank" data-title="Westward Expansion Oregon Trail">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Westward Expansion &amp; Oregon Trail</div><div class="link-card-author">Prof. Crespi — Storia americana</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Villa-Cortese_Bergamo_Claude_IIS-MENDEL/" target="_blank" data-title="Villa Cortese Bergamo">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Villa Cortese → Bergamo</div><div class="link-card-author">Guida territorio lombardo</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ────────── 6. TECNOLOGIE DIGITALI ────────── -->
+<section class="category" data-cat="tech">
+  <div class="cat-header">
+    <div class="cat-icon" style="background:#6a1b9a">
+      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    </div>
+    <div class="cat-title">Tecnologie Digitali e Strumenti</div>
+    <span class="cat-count">10 risorse</span>
+  </div>
+  <div class="links-grid">
+    <a class="link-card" href="https://iismendel.github.io/Guida-NOTEBOOK-LM_IIS-MENDEL/" target="_blank" data-title="Guida NotebookLM">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 12l8-8"/><path d="M16 4h4v4"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Guida NotebookLM</div><div class="link-card-author">Prof. Crespi — AI per didattica</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Guida-a-Gemini-per-la-didattica_IIS-MENDEL/" target="_blank" data-title="Guida Gemini per la didattica">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 12l8-8"/><path d="M16 4h4v4"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Guida Gemini per la Didattica</div><div class="link-card-author">Prof. Crespi — AI per insegnanti</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Guida-CANVA-for-Eudcation_IIS-MENDEL/" target="_blank" data-title="Guida Canva for Education">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Guida Canva for Education</div><div class="link-card-author">Prof. Crespi</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Canva-for-insegnants_guida-base-per-presentazioni_IIS-MENDEL/" target="_blank" data-title="Canva per insegnanti presentazioni">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Canva per Insegnanti — Guide Presentazioni</div><div class="link-card-author">Prof. Crespi</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Guida-PADLET_IIS-MENDEL/" target="_blank" data-title="Guida Padlet">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Guida Padlet</div><div class="link-card-author">Prof. Crespi — Lavagne collaborative</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Hub-software-gratuiti-per-studenti-e-docenti_IIS-MENDEL/" target="_blank" data-title="Hub software gratuiti studenti docenti">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Hub Software Gratuiti</div><div class="link-card-author">Studenti &amp; Docenti</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Linee-guida-IA_Miniistero_IIS-MENDEL/" target="_blank" data-title="Linee guida IA Ministero">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 12l8-8"/><path d="M16 4h4v4"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Linee Guida IA (Ministero)</div><div class="link-card-author">Prof. Crespi — Normativa AI scuola</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/divario-digitale_IIS-MENDEL/" target="_blank" data-title="Divario digitale">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Divario Digitale</div><div class="link-card-author">Ed. Civica digitale</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Cybersicurezza_IIS-MENDEL/" target="_blank" data-title="Cybersicurezza">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Cybersicurezza</div><div class="link-card-author">Sicurezza informatica</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/gamification_Mendel/" target="_blank" data-title="Gamification Mendel">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><circle cx="15" cy="13" r="1"/><circle cx="18" cy="11" r="1"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Gamification</div><div class="link-card-author">Didattica ludica</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ────────── 7. INCLUSIONE ────────── -->
+<section class="category" data-cat="inclusione">
+  <div class="cat-header">
+    <div class="cat-icon" style="background:#00695c">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    </div>
+    <div class="cat-title">Inclusione e Sostegno</div>
+    <span class="cat-count">3 risorse</span>
+  </div>
+  <div class="links-grid">
+    <a class="link-card" href="https://iismendel.github.io/Hub-Inclusione_IIS-MENDEL/#home" target="_blank" data-title="Hub Inclusione">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Hub Inclusione</div><div class="link-card-author">Portale per BES/DSA e supporto</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Piano-Inclusione_IIS-Mendel/" target="_blank" data-title="Piano Inclusione">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Piano per l'Inclusione</div><div class="link-card-author">Istituto</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Corsi-serali-IDA_IIS-MENDEL/" target="_blank" data-title="Corsi serali IDA">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Corsi Serali IDA</div><div class="link-card-author">Istruzione per Adulti</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ────────── 8. DOCENTI E ORGANIZZAZIONE ────────── -->
+<section class="category" data-cat="docenti">
+  <div class="cat-header">
+    <div class="cat-icon" style="background:#4e342e">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    </div>
+    <div class="cat-title">Docenti &amp; Organizzazione Scolastica</div>
+    <span class="cat-count">7 risorse</span>
+  </div>
+  <div class="links-grid">
+    <a class="link-card" href="https://iismendel.github.io/Ricognizione_Formazione_Docenti_24_25_IIS-MENDEL/" target="_blank" data-title="Formazione docenti 2024/25">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Ricognizione Formazione Docenti 2024/25</div><div class="link-card-author">Istituto</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Progetto-PNNR-Buone-Pratiche_PANORAMICA_IIS-MENDEL/" target="_blank" data-title="PNRR Buone Pratiche Panoramica">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">PNRR — Buone Pratiche (Panoramica)</div><div class="link-card-author">Istituto</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/FUTURA-PNRR-Gestione-progetti-25_26_IIS-MENDEL/" target="_blank" data-title="PNRR Futura Gestione progetti 2025/26">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">PNRR Futura — Gestione Progetti 2025/26</div><div class="link-card-author">Istituto</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/ANALISI-riforma-tecnici_IIS-MENDEL/" target="_blank" data-title="Analisi riforma tecnici">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Analisi Riforma Istituti Tecnici</div><div class="link-card-author">Istituto — D.M. n. 29/2026</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/RIFORMA-TECNICI_PROF.-RONZELLO_IIS-MENDEL/" target="_blank" data-title="Riforma tecnici Prof Ronzello">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Riforma Tecnici — Prof. Ronzello</div><div class="link-card-author">D.M. n. 29/2026</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Progetto-PNNR-Buone-Pratiche_PANORAMICA_IIS-MENDEL/" target="_blank" data-title="PNRR Scuola Futura IA">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Hub AI &amp; Strumenti PNRR Scuola Futura</div><div class="link-card-author">110+ strumenti digitali</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://edu.exceedlms.com/student/path/1725537/activity/3313835" target="_blank" data-title="Piattaforma formazione EXCEED">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Piattaforma Formazione (EXCEED LMS)</div><div class="link-card-author">Corso esterno</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ────────── 9. ALTRE MATERIE ────────── -->
+<section class="category" data-cat="materie">
+  <div class="cat-header">
+    <div class="cat-icon" style="background:#e65100">
+      <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+    </div>
+    <div class="cat-title">Altre Discipline</div>
+    <span class="cat-count">3 risorse</span>
+  </div>
+  <div class="links-grid">
+    <a class="link-card" href="https://iismendel.github.io/Italiano-e-storia_IIS-MENDEL/" target="_blank" data-title="Italiano e Storia">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Italiano e Storia</div><div class="link-card-author">Hub disciplinare</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Matematica_IIS-MENDEL/" target="_blank" data-title="Matematica">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Matematica</div><div class="link-card-author">Hub disciplinare</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a class="link-card" href="https://iismendel.github.io/Manuale-HACCP_IIS-MENDEL_2026/" target="_blank" data-title="Manuale HACCP 2026">
+      <div class="link-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="link-card-body"><div class="link-card-title">Manuale HACCP 2026</div><div class="link-card-author">Sicurezza alimentare</div></div>
+      <svg class="link-card-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <strong>IIS Gregorio Mendel</strong> · Via Ferrazzi 15, 20035 Villa Cortese (MI)<br>
+  Risorse create da <strong>docenti del Mendel</strong> per studenti e colleghi dell'Istituto.<br>
+  Aggiornato a.s. 2025/26 · Tutte le pagine sono liberamente accessibili online.
+</footer>
+
+<script>
+let activeCat = 'all';
+
+function filterCat(btn, cat) {
+  activeCat = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterAll();
+}
+
+function filterAll() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  let visible = 0;
+
+  document.querySelectorAll('.category').forEach(section => {
+    const cat = section.dataset.cat;
+    const catMatch = activeCat === 'all' || activeCat === cat;
+    if (!catMatch) { section.classList.add('hidden'); return; }
+
+    let anyVisible = false;
+    section.querySelectorAll('.link-card').forEach(card => {
+      const title = (card.dataset.title || card.querySelector('.link-card-title').textContent).toLowerCase();
+      const author = (card.querySelector('.link-card-author')?.textContent || '').toLowerCase();
+      const match = !q || title.includes(q) || author.includes(q);
+      card.classList.toggle('hidden', !match);
+      if (match) { anyVisible = true; visible++; }
+    });
+
+    section.classList.toggle('hidden', !anyVisible);
+  });
+
+  const cnt = document.getElementById('results-count');
+  cnt.textContent = q || activeCat !== 'all' ? `${visible} risorsa/e` : '';
+}
+</script>
+</body>
+</html>
